@@ -2,7 +2,4 @@
 target/
 **/*.iml
 
-build.sh
-template.battle
-robocodePid.tmp
 robots/

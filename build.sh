@@ -4,7 +4,7 @@ RELOAD_TIME_IN_SECONDS=60
 NUMBER_OF_TEAMS=6
 ROBOT_CACHE_DIR=robots
 
-ROBOCODE_HOME=/c/path/to/robocode
+#ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode/robocode
 
 HEADS=()
 
