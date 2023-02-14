@@ -20,7 +20,7 @@ prepare () {
   mkdir -p $ROBOT_CACHE_DIR
   rm -f $ROBOT_CACHE_DIR/*
 
-  echo "0" > robocodePid.tmp
+  echo "0" > $ROBOCODE_HOME/robocodePid.tmp
 
   echo "Prepared $NUMBER_OF_TEAMS teams"
 }
