@@ -10,7 +10,7 @@
 
     <properties>
         <!-- Must be a valid Java class name -->
-        <robot.name>OptimusPrime</robot.name>
+        <robot.name>HK47</robot.name>
 
         <java.version>21</java.version>
         <robocode.version>1.9.4.8</robocode.version>
