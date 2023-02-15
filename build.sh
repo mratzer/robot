@@ -9,13 +9,10 @@ ROBOT_CACHE_DIR=robots
 #HEADS=()
 
 CHANGES_DETECTED=false
+FIRST_TIME=true
 
 prepare () {
   echo "Preparing $NUMBER_OF_TEAMS teams ..."
-
-#  for ((i=1; i<=$NUMBER_OF_TEAMS; i++)) ; do
-#    HEADS+=(".")
-#  done
 
   mkdir -p $ROBOT_CACHE_DIR
   rm -f $ROBOT_CACHE_DIR/*
@@ -35,22 +32,24 @@ check_and_build() {
     team=$(printf "team-%02d" $i )
     local_head=$(git rev-parse "$team")
     remote_head=$(git rev-parse "origin/$team")
+	
+	if $FIRST_TIME || [ $local_head != $remote_head ]; then
+		git checkout $team
+		CHANGES_DETECTED=true
+		
+		if [ $local_head != $remote_head ]; then
+			git pull
+		fi
 
-    if [ $local_head = $remote_head ]; then
-      echo "Nothing to do for $team"
-    else
-      echo "Build robot of $team"
-#      HEADS[$i]=$new_head
-      CHANGES_DETECTED=true
+		echo "Build robot of $team"
+		./mvnw clean package
 
-      git checkout $team
-	  git pull
-      ./mvnw clean package
-
-      cp target/robot-$team.jar $ROBOT_CACHE_DIR/robot-$team.jar
-      ROBOT_NAME=$(cat target/project.properties | grep robot.name | cut -d "=" -f2)
-      echo "com.bearingpoint.robocode.$ROBOT_NAME" > $ROBOT_CACHE_DIR/robot-$team.txt
-    fi
+		cp target/robot-$team.jar $ROBOT_CACHE_DIR/robot-$team.jar
+		ROBOT_NAME=$(cat target/project.properties | grep robot.name | cut -d "=" -f2)
+		echo "com.bearingpoint.robocode.$ROBOT_NAME" > $ROBOT_CACHE_DIR/robot-$team.txt
+	else
+		echo "Nothing to do for $team"
+	fi
   done
 
   if $CHANGES_DETECTED ; then
@@ -59,6 +58,7 @@ check_and_build() {
     echo "Stop RoboCode, delete bots and relaunch RoboCode again"
   fi
 
+  FIRST_TIME=false
 }
 
 execute () {
