@@ -6,16 +6,16 @@ ROBOT_CACHE_DIR=robots
 
 #ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode/robocode
 
-HEADS=()
+#HEADS=()
 
 CHANGES_DETECTED=false
 
 prepare () {
   echo "Preparing $NUMBER_OF_TEAMS teams ..."
 
-  for ((i=1; i<=$NUMBER_OF_TEAMS; i++)) ; do
-    HEADS+=(".")
-  done
+#  for ((i=1; i<=$NUMBER_OF_TEAMS; i++)) ; do
+#    HEADS+=(".")
+#  done
 
   mkdir -p $ROBOT_CACHE_DIR
   rm -f $ROBOT_CACHE_DIR/*
@@ -27,20 +27,24 @@ prepare () {
 
 check_and_build() {
   CHANGES_DETECTED=false
-  git pull --all
+  git fetch --all
 
-  for i in ${!HEADS[@]}; do
-    team=$(printf "team-%02d" $((i + 1)) )
-    new_head=$(git rev-parse "$team")
+#  for i in ${!HEADS[@]}; do
+#    team=$(printf "team-%02d" $((i + 1)) )
+  for ((i=1; i<=$NUMBER_OF_TEAMS; i++)) ; do
+    team=$(printf "team-%02d" $i )
+    local_head=$(git rev-parse "$team")
+    remote_head=$(git rev-parse "origin/$team")
 
-    if [ $new_head = ${HEADS[$i]} ]; then
+    if [ $local_head = $remote_head ]; then
       echo "Nothing to do for $team"
     else
       echo "Build robot of $team"
-      HEADS[$i]=$new_head
+#      HEADS[$i]=$new_head
       CHANGES_DETECTED=true
 
       git checkout $team
+	  git pull
       ./mvnw clean package
 
       cp target/robot-$team.jar $ROBOT_CACHE_DIR/robot-$team.jar
