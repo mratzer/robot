@@ -6,10 +6,13 @@ ROBOT_CACHE_DIR=robots
 
 #ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode/robocode
 
-#HEADS=()
-
 CHANGES_DETECTED=false
 FIRST_TIME=true
+
+if [ -z "${ROBOCODE_HOME}" ]; then
+	echo "You need to set environment variable ROBOCODE_HOME !"
+	exit 1
+fi
 
 prepare () {
   echo "Preparing $NUMBER_OF_TEAMS teams ..."
