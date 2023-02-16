@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RELOAD_TIME_IN_SECONDS=60
-NUMBER_OF_TEAMS=6
+NUMBER_OF_TEAMS=5
 ROBOT_CACHE_DIR=robots
 
 #ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode/robocode
@@ -102,7 +102,7 @@ execute () {
     (
       cd $ROBOCODE_HOME
       pwd
-      ./robocode.bat -battle battles/bearingpoint.battle -tps 30 & echo $! > robocodePid.tmp
+      ./robocode.bat -battle battles/bearingpoint.battle -tps 25 & echo $! > robocodePid.tmp
     )
 
     echo "RoboCode started ($(cat $ROBOCODE_HOME/robocodePid.tmp))"
