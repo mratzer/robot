@@ -34,8 +34,6 @@ check_and_build() {
   CHANGES_DETECTED=false
   git fetch --all
 
-#  for i in ${!HEADS[@]}; do
-#    team=$(printf "team-%02d" $((i + 1)) )
   for ((i=1; i<=$ROBOCODE_TEAMS; i++)) ; do
     team=$(printf "team-%02d" $i )
     local_head=$(git rev-parse "$team")
