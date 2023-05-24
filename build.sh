@@ -1,9 +1,9 @@
 #!/bin/bash
 
 RELOAD_TIME_IN_SECONDS=60
-NUMBER_OF_TEAMS=6
 ROBOT_CACHE_DIR=robots
 
+#ROBOCODE_TEAMS=6
 #ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode/robocode
 
 CHANGES_DETECTED=false
@@ -14,15 +14,20 @@ if [ -z "${ROBOCODE_HOME}" ]; then
 	exit 1
 fi
 
+if [ -z "${ROBOCODE_TEAMS}" ]; then
+	echo "You need to set environment variable ROBOCODE_TEAMS - the number of participating teams (1 - 8)!"
+	exit 1
+fi
+
 prepare () {
-  echo "Preparing $NUMBER_OF_TEAMS teams ..."
+  echo "Preparing $ROBOCODE_TEAMS teams ..."
 
   mkdir -p $ROBOT_CACHE_DIR
   rm -f $ROBOT_CACHE_DIR/*
 
   echo "0" > $ROBOCODE_HOME/robocodePid.tmp
 
-  echo "Prepared $NUMBER_OF_TEAMS teams"
+  echo "Prepared $ROBOCODE_TEAMS teams"
 }
 
 check_and_build() {
@@ -31,7 +36,7 @@ check_and_build() {
 
 #  for i in ${!HEADS[@]}; do
 #    team=$(printf "team-%02d" $((i + 1)) )
-  for ((i=1; i<=$NUMBER_OF_TEAMS; i++)) ; do
+  for ((i=1; i<=$ROBOCODE_TEAMS; i++)) ; do
     team=$(printf "team-%02d" $i )
     local_head=$(git rev-parse "$team")
     remote_head=$(git rev-parse "origin/$team")
