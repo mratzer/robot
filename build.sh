@@ -10,7 +10,7 @@ CHANGES_DETECTED=false
 FIRST_TIME=true
 
 if [ -z "${ROBOCODE_HOME}" ]; then
-	echo "You need to set environment variable ROBOCODE_HOME !"
+	echo "You need to set environment variable ROBOCODE_HOME - your Robocode home directory!"
 	exit 1
 fi
 
