@@ -1,7 +1,5 @@
 # Robocode Coding Challenge
 
----
-
 ## Resources
 * Robocode Homepage: https://robocode.sourceforge.io/
 * Robocode Wiki: https://robowiki.net/wiki
@@ -10,22 +8,16 @@
   * https://robowiki.net/wiki/Radar
   * https://robowiki.net/wiki/Movement
 
----
-
 ## Worum geht es
 Jedes Team hat seinen eigenen vorbereiteten Arbeitsplatz. Ziel ist es, einen kampffähigen Roboter zu coden,
 der dann gegen die Roboter der anderen Teams antritt.
 
 Um eine neue Version während der Veranstaltung ins Rennen zu schicken, genügt ein `git push` (nach 1-n Commits natürlich) und nach bis zu einer Minute wird der Roboter am Demorechner im Hintergrund gebaut und der Wettkampf wird dann neu gestartet.
 
----
-
 ## Regeln
 * Jedes Team arbeitet ausschließlich am eigenen, vorbereiteten Branch
 * Jedes Team muss seinen Roboter _selbst schreiben_, d.h. kein ChatGPT, CoPilot usw.
 * Am Ende der Veranstaltung treten die finalen Versionen der Teams gegeneinander an
-
----
 
 ## How To
 
