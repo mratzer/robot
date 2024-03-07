@@ -4,10 +4,12 @@ RELOAD_TIME_IN_SECONDS=60
 ROBOT_CACHE_DIR=robots
 
 #ROBOCODE_TEAMS=6
-#ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode/robocode
+#ROBOCODE_HOME=/c/Users/markus.ratzer/Desktop/robocode-mod
+#ROBOCODE_MODDED=true
 
 CHANGES_DETECTED=false
 FIRST_TIME=true
+IS_MODDED="${ROBOCODE_MODDED:-false}"
 
 if [ -z "${ROBOCODE_HOME}" ]; then
 	echo "You need to set environment variable ROBOCODE_HOME - your Robocode home directory!"
@@ -105,7 +107,12 @@ execute () {
     (
       cd $ROBOCODE_HOME
       pwd
-      ./robocode.bat -battle battles/bearingpoint.battle -tps 25 & echo $! > robocodePid.tmp
+
+      if [ $IS_MODDED == "true" ]; then
+        EXTRA_PARAMS="-maximize"
+      fi
+
+      ./robocode.bat -battle battles/bearingpoint.battle -tps 25 $EXTRA_PARAMS & echo $! > robocodePid.tmp
     )
 
     echo "RoboCode started ($(cat $ROBOCODE_HOME/robocodePid.tmp))"
